@@ -1,15 +1,15 @@
 import java.util.Scanner;
 
-// Classe Cliente para representar cada cliente
-class Cliente {
+// Classe Vendedor para representar cada vendedor
+class Vendedor {
     private String cpf;
     private String nome;
     private String email;
-    private Cliente proximo;
-    private Cliente anterior;
+    private Vendedor proximo;
+    private Vendedor anterior;
 
     // Construtor
-    public Cliente(String cpf, String nome, String email) {
+    public Vendedor(String cpf, String nome, String email) {
         this.cpf = cpf;
         this.nome = nome;
         this.email = email;
@@ -30,30 +30,30 @@ class Cliente {
         return email;
     }
 
-    public Cliente getProximo() {
+    public Vendedor getProximo() {
         return proximo;
     }
 
-    public void setProximo(Cliente proximo) {
+    public void setProximo(Vendedor proximo) {
         this.proximo = proximo;
     }
 
-    public Cliente getAnterior() {
+    public Vendedor getAnterior() {
         return anterior;
     }
 
-    public void setAnterior(Cliente anterior) {
+    public void setAnterior(Vendedor anterior) {
         this.anterior = anterior;
     }
 }
 
-// Classe ListaClientes para gerenciar a lista duplamente encadeada de clientes
-class ListaClientes {
-    private Cliente primeiro;
-    private Cliente ultimo;
+// Classe ListaVendedores para gerenciar a lista duplamente encadeada de vendedores
+class ListaVendedores {
+    private Vendedor primeiro;
+    private Vendedor ultimo;
 
     // Construtor
-    public ListaClientes() {
+    public ListaVendedores() {
         this.primeiro = null;
         this.ultimo = null;
     }
@@ -63,23 +63,23 @@ class ListaClientes {
         return primeiro == null;
     }
 
-    // Método para adicionar um cliente ao final da lista
-    public void adicionarCliente(String cpf, String nome, String email) {
-        Cliente novoCliente = new Cliente(cpf, nome, email);
+    // Método para adicionar um vendedor ao final da lista
+    public void adicionarVendedor(String cpf, String nome, String email) {
+        Vendedor novoVendedor = new Vendedor(cpf, nome, email);
         if (estaVazia()) {
-            primeiro = novoCliente;
-            ultimo = novoCliente;
+            primeiro = novoVendedor;
+            ultimo = novoVendedor;
         } else {
-            novoCliente.setAnterior(ultimo);
-            ultimo.setProximo(novoCliente);
-            ultimo = novoCliente;
+            novoVendedor.setAnterior(ultimo);
+            ultimo.setProximo(novoVendedor);
+            ultimo = novoVendedor;
         }
     }
 
-    // Método para exibir todos os clientes da lista
-    public void exibirClientes() {
-        Cliente atual = primeiro;
-        System.out.println("Lista de Clientes:");
+    // Método para exibir todos os vendedores da lista
+    public void exibirVendedores() {
+        Vendedor atual = primeiro;
+        System.out.println("Lista de Vendedores:");
         while (atual != null) {
             System.out.println("CPF: " + atual.getCpf() + ", Nome: " + atual.getNome() + ", Email: " + atual.getEmail());
             atual = atual.getProximo();
@@ -87,66 +87,66 @@ class ListaClientes {
         System.out.println();
     }
 
-    // Método para buscar um cliente pelo ID
-    public Cliente buscarCliente(String cpf) {
-        Cliente atual = primeiro;
+    // Método para buscar um vendedor pelo CPF
+    public Vendedor buscarVendedor(String cpf) {
+        Vendedor atual = primeiro;
         while (atual != null) {
             if (atual.getCpf().equals(cpf)) {
                 return atual;
             }
             atual = atual.getProximo();
         }
-        return null; // Retorna null se o cliente não for encontrado
+        return null; // Retorna null se o vendedor não for encontrado
     }
 
-    // Método para remover um cliente pelo ID
-    public void removerCliente(String cpf) {
-        Cliente atual = primeiro;
+    // Método para remover um vendedor pelo CPF
+    public void removerVendedor(String cpf) {
+        Vendedor atual = primeiro;
         while (atual != null) {
             if (atual.getCpf().equals(cpf)) {
                 if (atual == primeiro && atual == ultimo) {
-                    // Caso especial: só há um cliente na lista
+                    // Caso especial: só há um vendedor na lista
                     primeiro = null;
                     ultimo = null;
                 } else if (atual == primeiro) {
-                    // Remover o primeiro cliente
+                    // Remover o primeiro vendedor
                     primeiro = primeiro.getProximo();
                     if (primeiro != null) {
                         primeiro.setAnterior(null);
                     }
                 } else if (atual == ultimo) {
-                    // Remover o último cliente
+                    // Remover o último vendedor
                     ultimo = ultimo.getAnterior();
                     if (ultimo != null) {
                         ultimo.setProximo(null);
                     }
                 } else {
-                    // Remover cliente do meio da lista
+                    // Remover vendedor do meio da lista
                     atual.getAnterior().setProximo(atual.getProximo());
                     atual.getProximo().setAnterior(atual.getAnterior());
                 }
-                System.out.println("Cliente com CPF " + cpf + " removido com sucesso.");
-                return; // Cliente removido, termina o método
+                System.out.println("Vendedor com CPF " + cpf + " removido com sucesso.");
+                return; // Vendedor removido, termina o método
             }
             atual = atual.getProximo();
         }
-        System.out.println("Cliente com CPF " + cpf + " não encontrado.");
+        System.out.println("Vendedor com CPF " + cpf + " não encontrado.");
     }
 }
 
-// Classe principal para o aplicativo de cadastro de clientes
-public class CadastroClientesApp {
-    private static ListaClientes listaClientes = new ListaClientes();
+// Classe principal para o aplicativo de cadastro de vendedores
+public class CadastroVendedoresApp {
+    private static ListaVendedores listaVendedores = new ListaVendedores();
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         boolean sair = false;
         while (!sair) {
             System.out.println("====== Menu ======");
-            System.out.println("1. Adicionar Cliente");
-            System.out.println("2. Remover Cliente");
-            System.out.println("3. Buscar Cliente");
-            System.out.println("4. Exibir Todos os Clientes");
+            System.out.println("1. Adicionar Vendedor");
+            System.out.println("2. Remover Vendedor");
+            System.out.println("3. Buscar Vendedor");
+            System.out.println("4. Exibir Todos os Vendedores");
             System.out.println("5. Sair");
             System.out.print("Escolha uma opção: ");
 
@@ -155,16 +155,16 @@ public class CadastroClientesApp {
 
             switch (opcao) {
                 case 1:
-                    adicionarCliente();
+                    adicionarVendedor();
                     break;
                 case 2:
-                    removerCliente();
+                    removerVendedor();
                     break;
                 case 3:
-                    buscarCliente();
+                    buscarVendedor();
                     break;
                 case 4:
-                    exibirClientes();
+                    exibirVendedores();
                     break;
                 case 5:
                     sair = true;
@@ -181,41 +181,41 @@ public class CadastroClientesApp {
         scanner.close();
     }
 
-    private static void adicionarCliente() {
-        System.out.print("Digite o CPF do cliente: ");
+    private static void adicionarVendedor() {
+        System.out.print("Digite o CPF do vendedor: ");
         String cpf = scanner.nextLine();
 
-        System.out.print("Digite o nome do cliente: ");
+        System.out.print("Digite o nome do vendedor: ");
         String nome = scanner.nextLine();
 
-        System.out.print("Digite o email do cliente: ");
+        System.out.print("Digite o email do vendedor: ");
         String email = scanner.nextLine();
 
-        listaClientes.adicionarCliente(cpf, nome, email);
-        System.out.println("Cliente cadastrado com sucesso!");
+        listaVendedores.adicionarVendedor(cpf, nome, email);
+        System.out.println("Vendedor cadastrado com sucesso!");
     }
 
-    private static void removerCliente() {
-        System.out.print("Digite o CPF do cliente que deseja remover: ");
+    private static void removerVendedor() {
+        System.out.print("Digite o CPF do vendedor que deseja remover: ");
         String cpf = scanner.nextLine();
 
-        listaClientes.removerCliente(cpf);
+        listaVendedores.removerVendedor(cpf);
     }
 
-    private static void buscarCliente() {
-        System.out.print("Digite o CPF do cliente que deseja buscar: ");
+    private static void buscarVendedor() {
+        System.out.print("Digite o CPF do vendedor que deseja buscar: ");
         String cpf = scanner.nextLine();
 
-        Cliente cliente = listaClientes.buscarCliente(cpf);
-        if (cliente != null) {
-            System.out.println("Cliente encontrado:");
-            System.out.println("CPF: " + cliente.getCpf() + ", Nome: " + cliente.getNome() + ", Email: " + cliente.getEmail());
+        Vendedor vendedor = listaVendedores.buscarVendedor(cpf);
+        if (vendedor != null) {
+            System.out.println("Vendedor encontrado:");
+            System.out.println("CPF: " + vendedor.getCpf() + ", Nome: " + vendedor.getNome() + ", Email: " + vendedor.getEmail());
         } else {
-            System.out.println("Cliente com CPF " + cpf + " não encontrado.");
+            System.out.println("Vendedor com CPF " + cpf + " não encontrado.");
         }
     }
 
-    private static void exibirClientes() {
-        listaClientes.exibirClientes();
+    private static void exibirVendedores() {
+        listaVendedores.exibirVendedores();
     }
 }
