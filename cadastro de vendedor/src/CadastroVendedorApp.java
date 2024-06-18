@@ -87,12 +87,27 @@ class ListaVendedores {
         }
         System.out.println("Vendedor cadastrado com sucesso!");
     }
+    /*
+    // Método para listar todos os vendedores cadastrados
+    public void listarVendedores() {
+        if (estaVazia()) {
+            System.out.println("Não há vendedores cadastrados.");
+        } else {
+            Vendedor atual = primeiro;
+            while (atual != null) {
+                System.out.println("CPF: " + atual.getCpf() + ", Nome: " + atual.getNome() + ", Email: " + atual.getEmail());
+                atual = atual.getProximo();
+            }
+        }
+    }
+    */
 }
 
 // Classe principal para o aplicativo de cadastro de vendedores
 public class CadastroVendedorApp {
     private static ListaVendedores listaVendedores = new ListaVendedores();
     private static Scanner scanner = new Scanner(System.in);
+    public static ListaVendedores lVendedores = new ListaVendedores();
 
     public static void main(String[] args) {
         boolean sair = false;
@@ -112,6 +127,7 @@ public class CadastroVendedorApp {
                     break;
                 case 2:
                     System.out.println("Voltando ao Menu Principal..."); // Mensagem de retorno ao menu
+                    System.out.println(""); // Espaço vazio
                     Menu.main(null); // Retornar para o menu inicial
                     break;
                 default:

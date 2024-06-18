@@ -1,0 +1,10 @@
+"java.configuration.runtimes": [
+  {
+    "name": "JavaSE-22",
+    "path": "C:\\caminho\\para\\seu\\jdk-22",
+    "default": true
+  }
+]
+"java.compilerArgs": [
+  "--enable-preview"
+]

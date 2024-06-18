@@ -112,6 +112,7 @@ public class CadastroCompradorApp {
                     break;
                 case 2:
                     System.out.println("Voltando ao Menu Principal..."); // Mensagem de retorno ao menu
+                    System.out.println(""); // Espaço vazio
                     Menu.main(null);  //Retornar para o menu inicial
                     break;
                 default:
