@@ -4,7 +4,7 @@ public class Pilha {
     int topo;
 
     public Pilha(){
-        elementos = new String[10];
+        elementos = new String[3];
         topo      = -1; //Posição inválida do vetor
     }
     //Método para empilhar
